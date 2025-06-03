@@ -1,11 +1,15 @@
-<p><%= link_to "Back to all questions", questions_path %></p>
+<div class="container">
+  <p><%= link_to "Back to all questions", questions_path %></p>
 
-<h2>Edit question <%= @question.id %></h2>
+  <h2 class="title-lg mb">Edit question <%= @question.id %></h2>
 
-<%= form_with model: @question do |form| %>
-  <p><%= form.label :body, "Question text" %></p>
-  <p><%= form.text_area :body, rows: 5 %></p>
-  <p><%= form.label :user_id %></p>
-  <p><%= form.text_field :user_id %></p>
-  <p><%= form.submit "Save" %></p>
-<% end %>
+  <%= form_with model: @question do |form| %>
+    <p><%= form.label :body, "Question text" %></p>
+    <p><%= form.text_area :body, rows: 5, class: "form-text-area" %></p>
+    
+    <p class="mt"><%= form.label :user_id %></p>
+    <p><%= form.text_field :user_id, class: "form-text-field" %></p>
+
+    <p class="mt"><%= form.submit "Save", class: "button button-main" %></p>
+  <% end %>
+</div>

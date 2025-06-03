@@ -1,0 +1,24 @@
+body {
+  color: #1E293B;
+  font-family: 'Inter', sans-serif;
+}
+
+a, button {
+  color: #3B82F6
+}
+
+.title-lg {
+  font-size: 175%;
+}
+
+.title-md, .title {
+  font-size: 150%;
+}
+
+.title-sm {
+  font-size: 125%;
+}
+
+.text-lg {
+  font-size: 80%;
+}

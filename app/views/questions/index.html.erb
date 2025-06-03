@@ -1,9 +1,11 @@
-<h2>Questions</h2>
+<div class="container">
+  <h2 class="title-lg mb">Questions</h2>
 
-<% @questions.each do |question| %>
-  <p><%= link_to "Question #{question.id}", question_path(question) %></p>
-<% end %>
+  <% @questions.each do |question| %>
+    <p class="mb-sm"><%= link_to "Question #{question.id}", question_path(question) %></p>
+  <% end %>
 
-<br>
+  <br>
 
-<p><%= link_to "Create new question", new_question_path %></p>
+  <p class="mt"><%= link_to "Create new question", new_question_path, class: "button button-main" %></p>
+</div>
