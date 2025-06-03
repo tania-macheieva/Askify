@@ -1,0 +1,11 @@
+<p><%= link_to "Back to all questions", questions_path %></p>
+
+<h2>New question</h2>
+
+<%= form_with model: @question do |form| %>
+  <p><%= form.label :body, "Question text" %></p>
+  <p><%= form.text_area :body, rows: 5 %></p>
+  <p><%= form.label :user_id %></p>
+  <p><%= form.text_field :user_id %></p>
+  <p><%= form.submit "Create" %></p>
+<% end %>
