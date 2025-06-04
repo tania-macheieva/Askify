@@ -1,0 +1,30 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  color: white;
+  padding: 28px 26px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0;}
+}
+
+.success {
+  background-color: #4ade80;
+}
+
+.error {
+  background-color: #f87171;
+}
+
+.toast i {
+  margin-right: 10px;
+}

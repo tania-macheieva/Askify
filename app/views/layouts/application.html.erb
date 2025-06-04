@@ -22,16 +22,24 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= tag.link rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter&display=swap" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
+    <% if flash[:notice].present? %>
+      <div class="toast success" id="toast-notice">
+        <i class="fa-solid fa-xmark"></i>
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert].present? %>
+      <div class="toast error" id="toast-alert">
+        <i class="fa-solid fa-xmark"></i>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <div class="wrapper">
-      <%= yield %>
-      <% if notice %>
-        <div class="alert alert-info">
-          <%= notice %>
-        </div>
-      <% end %>
+      <%= yield %> 
     </div>
   </body>
 </html>

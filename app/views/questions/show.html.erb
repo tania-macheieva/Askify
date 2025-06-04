@@ -1,13 +1,8 @@
 <div class="container">
-  <p class="mb"><%= link_to "Back to all questions", questions_path %></p>
-
-  <h2 class="title-lg mb">Question №<%= @question.id %></h2>
-
-  <p class="mb-sm"><%= @question.body %></p>
-  <p>user_id: <b><%= @question.user_id %></b></p>
-
-  <div class="mt">
-    <%= link_to fa_icon('pen-to-square'), edit_question_path, title: "Change question text" %>
-    <%= button_to fa_icon('trash'), question_path(@question), method: :delete, title: "Delete question",  class: 'btn-danger' %>
+  <div class="question-header mb">
+    <h2 class="title-lg mb-0">Question №<%= @question.id %></h2>
+    <%= link_to fa_icon('right-from-bracket'), questions_path, class: "exit" %>
   </div>
+
+  <%= render @question %>
 </div>

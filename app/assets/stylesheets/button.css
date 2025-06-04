@@ -1,17 +1,34 @@
 .button {
   border: none;
-  border-radius: .5rem;
+  border-radius: 2rem;
   color: #fff;
   display: inline-block;
-  font-size: 14px;
-  padding: 8px 13px 7px;
+  font-size: 15px;
+  padding: 13px 25px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .button-main {
-  background-color: #3B82F6;
+  border: 1px solid #0ea4e9;
+  background-color: #fff;
+  color: #0ea4e9;
+  font-weight: 700;
+  outline: none;
+  transition: background-color .5s ease;
+
+}
+
+.button-main:hover {
+  transition: background-color .5s ease;
+  background-color: #0ea4e9;
+  color: #fff;
 }
 
 .btn-danger {
-  color: #EF4444;
+  color: #f87171;
+}
+
+.exit {
+  font-size: 23px;
 }

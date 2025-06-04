@@ -4,7 +4,7 @@ body {
 }
 
 a, button {
-  color: #3B82F6
+  color: #0ea4e9;   
 }
 
 .title-lg {
@@ -21,4 +21,16 @@ a, button {
 
 .text-lg {
   font-size: 80%;
+}
+
+.text-dark {
+  color: #6b7280;
+}
+
+.text-light {
+  color: #9ca3af;
+}
+
+.no-underline {
+  text-decoration: none;
 }

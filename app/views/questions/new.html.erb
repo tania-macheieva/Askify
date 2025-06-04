@@ -1,15 +1,8 @@
 <div class="container">
-  <p class="mb"><%= link_to "Back to all questions", questions_path %></p>
+  <div class="question-header mb">
+    <h2 class="title-lg">New question</h2>
+    <%= link_to fa_icon('right-from-bracket'), questions_path, class: "exit" %>
+  </div>
 
-  <h2 class="title-lg">New question</h2>
-
-  <%= form_with model: @question do |form| %>
-    <p><%= form.label :body, "Question text" %></p>
-    <p><%= form.text_area :body, rows: 5, class: "form-text-area" %></p>
-    
-    <p class="mt"><%= form.label :user_id %></p>
-    <p><%= form.text_field :user_id, class: "form-text-field" %></p>
-
-    <p class="mt"><%= form.submit "Create", class: "button button-main" %></p>
-  <% end %>
+  <%= render 'form', question: @question %>
 </div>

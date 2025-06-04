@@ -1,0 +1,17 @@
+<div class="mb-sm text-dark">
+  <%= link_to question.body, question_path(question), class: "text-dark no-underline" %>
+</div>
+
+<div class="text-sm question-footer">
+  <div class="text-light">
+    <%= question.created_at.present? ? l(question.created_at, format: :short) : "No timestamp" %>
+
+  </div>
+
+  <div>
+    <%= link_to fa_icon('pen-to-square'), edit_question_path(question), 
+        title: "Change question text"%>
+    <%= button_to fa_icon('trash'), question_path(question), 
+        method: :delete, title: "Delete question",  class: 'btn-danger' %>
+  </div>
+</div>
