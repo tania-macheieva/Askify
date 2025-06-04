@@ -5,7 +5,7 @@
 
   <h2 class="title-lg mt-lg mb">
     <%= @questions.count %>
-    <%= inclination(@questions.count, "Question", "Questions") %>
+    <%= question_count_text(@questions.count) %>
   </h2>
 
   <% @questions.each do |question| %>
