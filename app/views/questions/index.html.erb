@@ -3,15 +3,14 @@
     <%= render 'form', question: @question %>
   </p>
 
-  <h2 class="title-lg mt-lg mb">All Questions</h2>
+  <h2 class="title-lg mt-lg mb">
+    <%= @questions.count %>
+    <%= inclination(@questions.count, "Question", "Questions") %>
+  </h2>
 
   <% @questions.each do |question| %>
     <div class=" container">
       <%= render question %>
     </div>
   <% end %> 
-  
-
-
-
 </div>
