@@ -32,3 +32,16 @@
 .exit {
   font-size: 23px;
 }
+
+.send-button {
+  display: flex;
+  align-items: end;
+  justify-self: flex-end;
+  border-radius: 100%;
+  padding: 15px ;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 4px;
+  margin-right: 4px;
+  font-size: large;
+}

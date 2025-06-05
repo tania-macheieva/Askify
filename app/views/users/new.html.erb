@@ -1,0 +1,31 @@
+<div class="container form"> 
+  <div>
+    <div class="center mt">
+      <h2 class="title text-bold">Sign up<h2>
+      <h3 class="subtitle mt">Post your portfolio & ask questions</h3>
+    </div>
+    <div class="mt-lg">
+      <%= form_with model: @user do |form| %>
+        <p class="mt"><%= form.label :name, "Name" %></p>
+        <p class="mt-sm"><%= form.text_field :name, class: "form-text-field" %></p>
+
+        <p class="mt"><%= form.label :nickname, "Nickname" %></p>
+        <p class="mt-sm"><%= form.text_field :nickname, class: "form-text-field"%></p>
+      
+        <p class="mt"><%= form.label :email, "Email" %></p>
+        <p class="mt-sm"><%= form.text_field :email, class: "form-text-field"%></p>
+
+        <p class="mt"><%= form.label :password, "Password" %></p>
+        <p class="mt-sm"><%= form.password_field :password, class: "form-text-field"%></p>
+
+        <p class="mt-lg center"><%= form.submit "Sign Up", class: "button button-main" %></p>
+
+      <% end %>
+      <p class="subtitle mt mb-lg">
+        Already have an account? 
+        <%= link_to 'Sign In', new_session_path%>
+      </p>
+
+    </div>
+  </div>
+</div>

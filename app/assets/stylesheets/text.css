@@ -23,6 +23,14 @@ a, button {
   font-size: 80%;
 }
 
+.subtitle {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
 .text-dark {
   color: #6b7280;
 }
@@ -34,3 +42,4 @@ a, button {
 .no-underline {
   text-decoration: none;
 }
+

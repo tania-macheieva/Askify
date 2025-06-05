@@ -1,0 +1,23 @@
+<div class="container form"> 
+  <div>
+    <div class="center mt">
+      <h2 class="title text-bold">Sign In</h2>
+      <h3 class="subtitle mt"> Enter your email and password <h3>
+    </div>
+    <div class="mt-lg">
+      <%= form_with scope: :session, url: session_path, data: {turbo: false} do |form| %>
+        <p class="mt"><%= form.label :email, "Email" %></p>
+        <p class="mt-sm"><%= form.text_field :email, class: "form-text-field"%></p>
+
+        <p class="mt"><%= form.label :password, "Password" %></p>
+        <p class="mt-sm"><%= form.password_field :password, class: "form-text-field"%></p>
+
+        <p class="center mt-lg mb-lg"><%= form.submit "Sign In", class: "button button-main" %></p>
+      <% end %>
+      <p class="subtitle mb-lg">
+        Don't have an account?  
+        <%= link_to 'Sign Up', new_user_path%>
+      </p>
+    </div>
+  </div>
+</div>

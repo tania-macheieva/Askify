@@ -1,8 +1,13 @@
 <%= form_with model: @question do |form| %>
+  <div class="form-send-area mb-lg">
+    <p><%= form.text_area :body, rows: 5, class: "form-text-area", placeholder: "Enter your question" %></p>
+    <div class="send-block">      
+      <%= button_tag type: "submit", class: "button button-main send-button" do %>
+        <i class="fa-solid fa-paper-plane"></i>
+      <% end %>
 
-  <p class="mt mb-sm"><%= form.text_area :body, rows: 5, class: "form-text-area", placeholder: "Enter your question" %></p>
-  
+    </div>
+  </div>
   <p><%= form.text_field :user_id, class: "form-text-field", placeholder: "User ID" %></p>
 
-  <p class="mt"><%= form.submit "Save", class: "button button-main mb-lg" %></p>
 <% end %>

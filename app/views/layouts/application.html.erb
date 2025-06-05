@@ -26,20 +26,36 @@
   </head>
 
   <body>
-    <% if flash[:notice].present? %>
-      <div class="toast success" id="toast-notice">
-        <i class="fa-solid fa-xmark"></i>
-        <%= flash[:notice] %>
-      </div>
-    <% elsif flash[:alert].present? %>
-      <div class="toast error" id="toast-alert">
-        <i class="fa-solid fa-xmark"></i>
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-
     <div class="wrapper">
-      <%= yield %> 
+      <nav class="navbar">
+        <p class="title-lg  text-bold">
+          <%= link_to "Askify", root_path, class: "nav-logo"%>
+        </p>
+        <div class="navbar-right">
+          <% if current_user.present? %>
+            <%= "@#{current_user.nickname}" %>
+            <%= button_to "Exit", session_path, method: :delete %>
+          <% else %>
+            <%= link_to 'Sign Up', new_user_path, class: "button button-main nav-btn" %>
+            <%= link_to 'Sign In', new_session_path, class: "button button-main nav-btn" %>
+          <% end %>
+        </div>
+      </nav>
+      <div class="wrapper main">
+        <% if flash[:notice].present? %>
+          <div class="toast success" id="toast-notice">
+            <i class="fa-solid fa-check"></i>
+            <%= flash[:notice] %>
+          </div>
+        <% elsif flash[:alert].present? %>
+          <div class="toast error" id="toast-alert">
+            <i class="fa-solid fa-xmark"></i>
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+    
+        <%= yield %> 
+      </div>
     </div>
   </body>
 </html>
