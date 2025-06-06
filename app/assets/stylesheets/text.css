@@ -39,6 +39,10 @@ a, button {
   color: #9ca3af;
 }
 
+.text-red {
+  color: #f87171;
+}
+
 .no-underline {
   text-decoration: none;
 }

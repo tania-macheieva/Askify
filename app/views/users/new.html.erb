@@ -4,6 +4,15 @@
       <h2 class="title text-bold">Sign up<h2>
       <h3 class="subtitle mt">Post your portfolio & ask questions</h3>
     </div>
+
+    <% if @user.errors.any? %>
+      <div class="mt">
+        <% @user.errors.full_messages.each do |message| %>
+        <p class="mt-sm text-red"><%= message %></p>
+      <% end %> 
+      </div>
+    <% end %>
+
     <div class="mt-lg">
       <%= form_with model: @user, data: { turbo: false } do |form| %>
         <p class="mt"><%= form.label :name, "Name" %></p>
@@ -17,6 +26,9 @@
 
         <p class="mt"><%= form.label :password, "Password" %></p>
         <p class="mt-sm"><%= form.password_field :password, class: "form-text-field" %></p>
+
+        <p class="mt"><%= form.label :password_confirmation, "Password" %></p>
+        <p class="mt-sm"><%= form.password_field :password_confirmation, class: "form-text-field" %></p>
 
         <p class="mt"><%= form.label :avatar, "Profile Picture" %></p>
         <p class="mt-sm"><%= form.file_field :avatar, class: "form-text-field" %></p>
