@@ -24,7 +24,24 @@
   color: #1e293bd2;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-right: 10px; 
+  border: 2px solid #0ea4e9;
+}
+
 .navbar-right {
+  justify-content: flex-end;
   display: flex;
   gap: 1rem;
   align-items: center;

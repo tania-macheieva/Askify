@@ -4,10 +4,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    user_params = params.require(:user).permit(:name, :nickname, :email, :password)
+    user_params = params.require(:user).permit(:name, :nickname, :email, :password, :avatar)
 
-    User.create(user_params)
+    @user = User.new(user_params)
 
-    redirect_to root_path, notice: "Successfully signed up!"
+    if @user.save
+      redirect_to root_path, notice: "Successfully signed up!"
+    else
+      flash.now[:alert] = "Incorrectly filled fields!"
+      render :new
+    end
   end
 end
