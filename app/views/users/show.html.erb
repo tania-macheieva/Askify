@@ -27,12 +27,11 @@
         <% end %>
 
         <% if @user.linkedin_url.present? && (safe_linkedin_url = safe_linkedin_url(@user.linkedin_url)) %>
-          <%= link_to @user.linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
+          <%= link_to safe_linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
             <i class="fa-brands fa-linkedin"></i> LinkedIn
           <% end %>
         <% end %>
       </div>
-
 
       <% if current_user == @user %>
         <%= link_to 'Edit Profile', edit_user_path(@user), class: 'button button-main mt' %>
