@@ -8,15 +8,9 @@ class UsersController < ApplicationController
 
   def create
     user_params
+    User.create(user_params)
 
-    @user = User.new(user_params)
-
-    if @user.save
-      redirect_to root_path, notice: "Successfully signed up!"
-    else
-      flash.now[:alert] = "Incorrectly filled fields!"
-      render :new
-    end
+    redirect_to root_path, notice: "Successfully signed up!"
   end
 
   def show
