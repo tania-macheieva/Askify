@@ -27,7 +27,6 @@
   color: var(--transparent-logo);
 }
 
-<<<<<<< HEAD
 .user-info {
   display: flex;
   align-items: center;
@@ -60,9 +59,8 @@
   border: 2px solid var(--main);
 }
 
-=======
->>>>>>> parent of ef1fa73 (feat: add avatar upload via Active Storage + show in navbar)
 .navbar-right {
+  justify-content: flex-end;
   display: flex;
   gap: 1rem;
   align-items: center;

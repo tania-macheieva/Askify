@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[8.0].define(version: 2025_06_11_121753) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,9 +39,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_121753) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-=======
-ActiveRecord::Schema[8.0].define(version: 2025_06_05_191437) do
->>>>>>> parent of ef1fa73 (feat: add avatar upload via Active Storage + show in navbar)
   create_table "questions", force: :cascade do |t|
     t.text "body"
     t.integer "user_id"
@@ -67,4 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_191437) do
     t.text "languages"
     t.string "position"
   end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end
