@@ -21,14 +21,26 @@
         <% end %>
 
         <% if @user.github_url.present? %>
-          <%= link_to @user.github_url, target: "_blank", rel: "noopener", class: "social-button github" do %>
-            <i class="fa-brands fa-github"></i> GitHub
+          <% begin %>
+            <% github_uri = URI.parse(@user.github_url) %>
+            <% if github_uri.scheme.in?(%w[http https]) %>
+              <%= link_to @user.github_url, target: "_blank", rel: "noopener", class: "social-button github" do %>
+                <i class="fa-brands fa-github"></i> GitHub
+              <% end %>
+            <% end %>
+          <% rescue URI::InvalidURIError %>
           <% end %>
         <% end %>
 
         <% if @user.linkedin_url.present? %>
-          <%= link_to @user.linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
-            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          <% begin %>
+            <% linkedin_uri = URI.parse(@user.linkedin_url) %>
+            <% if linkedin_uri.scheme.in?(%w[http https]) %>
+              <%= link_to @user.linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+              <% end %>
+            <% end %>
+          <% rescue URI::InvalidURIError %>
           <% end %>
         <% end %>
       </div>
