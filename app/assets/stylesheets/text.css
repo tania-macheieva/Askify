@@ -1,10 +1,10 @@
 body {
-  color: #1E293B;
+  color: var(--black);   
   font-family: 'Inter', sans-serif;
 }
 
 a, button {
-  color: #0ea4e9;   
+  color: var(--main);   
 }
 
 .title-lg {
@@ -32,18 +32,17 @@ a, button {
 }
 
 .text-dark {
-  color: #6b7280;
+  color: var(--dark-grey);
 }
 
-.text-light {
-  color: #9ca3af;
+.text-grey {
+  color: var(--grey);
 }
 
 .text-red {
-  color: #f87171;
+  color: var(--red);
 }
 
 .no-underline {
   text-decoration: none;
 }
-

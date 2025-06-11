@@ -1,13 +1,21 @@
-<%= form_with model: @question do |form| %>
+<%= form_with model: question, local: true do |form| %>
+  <% if question.errors.any? %>
+    <div class="alert alert-danger">
+      <% question.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="form-send-area mb-lg">
-    <p><%= form.text_area :body, rows: 5, class: "form-text-area", placeholder: "Enter your question" %></p>
-    <div class="send-block">      
+    <%= form.text_area :body, rows: 5, class: "form-text-area", placeholder: "Enter your question" %>
+    
+    <div class="send-block">
       <%= button_tag type: "submit", class: "button button-main send-button" do %>
         <i class="fa-solid fa-paper-plane"></i>
       <% end %>
-
     </div>
   </div>
-  <p><%= form.text_field :user_id, class: "form-text-field", placeholder: "User ID" %></p>
 
+  <%= form.hidden_field :receiver_id, value: @user.id %>
 <% end %>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :edit, :update, :destroy ]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def new
     session[:current_time] = Time.now
@@ -19,10 +19,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @questions = @user.questions.order(created_at: :desc)
+    @received_questions = @user.received_questions.order(created_at: :desc)
+    @new_question = Question.new
+  end
+
+
   def edit
   end
 
   def update
+    if params[:user] && params[:user][:remove_avatar] == "1"
+      @user.avatar.purge if @user.avatar.attached?
+      params[:user].delete(:remove_avatar)
+    end
+
     if @user.update(user_params)
       redirect_to root_path, notice: "Successfully user`s data updated!"
     else
@@ -39,6 +51,7 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: "The user successfully removed!"
   end
 
+
   private
 
   def set_user
@@ -46,6 +59,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :nickname, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(
+      :name, :nickname, :email, :password,
+      :password_confirmation, :avatar,
+      :github_url, :linkedin_url,
+      :education, :experience, :tech_stack, :languages, :position,
+      :remove_avatar)
   end
 end

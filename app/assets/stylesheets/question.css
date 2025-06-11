@@ -5,8 +5,29 @@
   justify-content: space-between;
 }
 
+.question-container {
+  margin: 1rem auto;
+  padding: 20px;
+  background-color: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
+  border: none;
+}
+
+.question-btns {
+  height: 25px;
+  padding-right: 10px;
+}
+
+.question-btns button {
+  height: 25px;
+  padding: 0 !important;
+  padding-left: 10px !important;
+}
+
+
 .question-footer {
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--light-grey);
   display: flex;
   justify-content: space-between;
   padding-top: 10px;

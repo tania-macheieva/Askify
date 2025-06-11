@@ -3,7 +3,7 @@
   bottom: 20px;
   right: 20px;
   z-index: 1000;
-  color: white;
+  color: var(--white);
   padding: 28px 26px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -12,20 +12,26 @@
 }
 
 @keyframes fadeOut {
-  0%   { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { 
+  0% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
     opacity: 0;
     display: none;
   }
 }
 
 .success {
-  background-color: #4ade80;
+  background-color: var(--green);
 }
 
 .error {
-  background-color: #f87171;
+  background-color: var(--red);
 }
 
 .toast i {

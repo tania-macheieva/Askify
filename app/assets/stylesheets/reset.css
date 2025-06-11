@@ -1,9 +1,32 @@
+:root {
+  --main: #0ea4e9;
+  --red: #f87171;
+  --dark-red: #a83535;
+  --dark-grey: #6b7280;
+  --grey: #9ca3af;
+  --light-grey: #e0e0e0;
+  --blue: #005f91;
+  --black: #1E293B;
+  --pale-blue: #f8fafc;
+  --dusty-white: #fdfdfd;
+  --white-smoke: #f4f4f4;
+  --white: #fff;
+  --transparent-logo: #1f2427df;
+  --transparent-dark: rgba(0, 0, 0, 0.4);
+  --green: #4ade80;
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 100%;
   font-weight: normal;
 }

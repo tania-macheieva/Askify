@@ -11,14 +11,10 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= tag.link rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter&display=swap" %>
     <%= javascript_importmap_tags %>
@@ -29,30 +25,46 @@
   <body>
     <div class="wrapper">
       <nav class="navbar">
-        <p class="title-lg  text-bold">
-          <%= link_to "Askify", root_path, class: "nav-logo"%>
+        <p class="title-lg text-bold">
+          <%= link_to root_path, class: "nav-logo" do %>
+            <%= image_tag "logo.png", alt: "Avatar", class: "nav-logo" %>
+            Askify
+          <% end %>
         </p>
+
         <div class="navbar-right">
           <% if current_user.present? %>
+            <div class="user-info user-dropdown">
+              <div class="user-label">
+                <span class="nickname">
+                  <%= link_to current_user.nickname, user_path(current_user), class: "nickname" %>
+                </span>
 
-            <div class="user-info">
-              <%= "#{current_user.nickname}" %>
+                <%= link_to user_path(current_user) do %>
+                  <%= image_tag(current_user.avatar.attached? ? current_user.avatar : "default-avatar.png", class: "avatar") %>
+                <% end %>
 
-              <% if current_user.avatar.attached? %>
-                <%= image_tag current_user.avatar, class: "avatar" %>
-              <% else %>
-                <%= image_tag asset_path("default-avatar.png"), class: "avatar" %>
+              </div>
+
+              <div class="dropdown-menu">
+                <%= link_to user_path(current_user), class: "dropdown-item dropdown-link profile-link" do %>
+                  <i class="fa-solid fa-house-user"></i> My Profile
+                <% end %>
+
+                <%= button_to session_path, method: :delete, class: "dropdown-item dropdown-link logout-btn" do %>
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Sign out
               <% end %>
             </div>
 
-            <%= button_to "Exit", session_path, method: :delete %>
+            </div>
           <% else %>
             <%= link_to 'Sign Up', new_user_path, class: "button button-main nav-btn" %>
             <%= link_to 'Sign In', new_session_path, class: "button button-main nav-btn" %>
           <% end %>
         </div>
-
       </nav>
+
       <div class="wrapper main">
         <% if flash[:notice].present? %>
           <div class="toast success" id="toast-notice">

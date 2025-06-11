@@ -1,0 +1,176 @@
+.avatar-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.avatar-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.avatar-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px dashed var(--light-grey);
+  background: var(--pale-blue);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--dark-grey);
+  font-size: 14px;
+  text-align: center;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--transparent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: var(--white);
+}
+
+.avatar-preview:hover .avatar-overlay {
+  opacity: 1;
+}
+
+
+.avatar-remove-btn {
+  display: none;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+}
+
+.avatar-upload-container.has-image .avatar-remove-btn {
+  display: flex;
+}
+
+@keyframes slideInUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.avatar-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.avatar-hint {
+  margin-top: 0.5rem;
+  font-size: 14px;
+  text-align: center;
+}
+
+.avatar-hint span {
+  font-size: 12px;
+}
+
+.form-section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: var(--dusty-white);
+  border-radius: 10px;
+  border: 1px solid var(--light-grey);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.edit-section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--black);
+  border-bottom: 2px solid var(--light-grey);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+  width: 98%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+.delete-button {
+  padding: 0.5rem 1rem;
+  background: none;
+  color: var(--red);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-preview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .form-section {
+    padding: 1rem;
+  }
+
+  .avatar-remove-btn {
+    font-size: 13px;
+    padding: 0.4rem 0.8rem;
+  }
+}

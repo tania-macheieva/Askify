@@ -1,8 +1,8 @@
 <div class="container">
   <div class="question-header mb">
-    <h2 class="title-lg mb-0">Question №<%= @question.id %></h2>
+<h2 class="title-lg mb-0">Question for <%= @receiver.nickname %></h2>
     <%= link_to fa_icon('right-from-bracket'), questions_path, class: "exit" %>
   </div>
 
-  <%= render @question %>
+  <%= render 'questions/form', question: @new_question %>
 </div>

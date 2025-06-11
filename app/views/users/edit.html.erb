@@ -1,47 +1,141 @@
-<div class="container"> 
-  <h2 class="title">Edit user<h2>
-    
-    <% if @user.errors.any? %>
-      <div class="mt">
-        <% @user.errors.full_messages.each do |message| %>
+<div class="container">
+  <div class="flex space-x">
+    <h2 class="title">Edit user</h2>
+    <%= button_to "Delete profile", user_path(@user), method: :delete,
+        onclick: "return confirm('Do you want to delete your profile?');",
+        class: "text-red text-sm delete-button" %>
+  </div>
+
+  <% if @user.errors.any? %>
+    <div class="mt">
+      <% @user.errors.full_messages.each do |message| %>
         <p class="mt-sm text-red"><%= message %></p>
-      <% end %> 
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="mt-lg">
     <%= form_with model: @user, data: { turbo: false } do |form| %>
-      <p class="mt"><%= form.label :name, "Name" %></p>
-      <p class="mt-sm"><%= form.text_field :name, class: "form-text-field" %></p>
+      <div class="avatar-section">
+        <div class="avatar-upload-container<%= ' has-image' if @user.avatar.present? %>">
+          <div class="avatar-preview" id="avatarPreview">
+            <% if @user.avatar.present? %>
+              <%= image_tag @user.avatar, alt: "Current avatar", class: "avatar-image" %>
+            <% else %>
+              <div class="avatar-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Upload Photo</span>
+              </div>
+            <% end %>
+            <div class="avatar-overlay">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <%= form.file_field :avatar, class: "avatar-input", accept: "image/*", id: "avatarInput" %>
+          </div>
+            <button type="button" class="avatar-remove-btn button-danger button mt  " onclick="removeAvatar()" title="Remove Photo">
+              <i class="fa-solid fa-trash"></i>
+              Remove Photo
+            </button>
+          <p class="avatar-hint text-dark">Click to upload or drag & drop<br><span class="text-grey">PNG, JPG up to 5MB</span></p>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="edit-section-title">
+          <i class="fa-solid fa-gear"></i> 
+          Basic Information
+        </h3>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="mt"><%= form.label :name, "Name" %></p>
+            <p class="mt-sm"><%= form.text_field :name, class: "form-text-field" %></p>
+          </div>
+          <div class="form-group">
+            <p class="mt"><%= form.label :nickname, "Nickname" %></p>
+            <p class="mt-sm"><%= form.text_field :nickname, class: "form-text-field" %></p>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="mt"><%= form.label :email, "Email" %></p>
+            <p class="mt-sm"><%= form.text_field :email, class: "form-text-field" %></p>
+          </div>
+          <div class="form-group">
+            <p class="mt"><%= form.label :position, "Position" %></p>
+            <p class="mt-sm"><%= form.text_field :position, class: "form-text-field" %></p>
+          </div>
+        </div>
+      </div>
 
-      <p class="mt"><%= form.label :nickname, "Nickname" %></p>
-      <p class="mt-sm"><%= form.text_field :nickname, class: "form-text-field" %></p>
-      
-      <p class="mt"><%= form.label :email, "Email" %></p>
-      <p class="mt-sm"><%= form.text_field :email, class: "form-text-field" %></p>
+      <div class="form-section">
+        <h3 class="edit-section-title">
+          <i class="fa-solid fa-gear"></i> 
+          Security
+        </h3>
+        <p class="mt-lg subtitle">If you don't want to change the password — leave the fields blank.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="mt"><%= form.label :password, "Password" %></p>
+            <p class="mt-sm"><%= form.password_field :password, class: "form-text-field" %></p>
+          </div>
+          <div class="form-group">
+            <p class="mt"><%= form.label :password_confirmation, "Confirm Password" %></p>
+            <p class="mt-sm"><%= form.password_field :password_confirmation, class: "form-text-field" %></p>
+          </div>
+        </div>
+      </div>
 
-      <p class="mt-lg subtitle"><%= form.label :nickname, "If you don`t want change the password - leave the fields blank" %></p>
+      <div class="form-section">
+        <h3 class="edit-section-title">
+          <i class="fa-solid fa-gear"></i> 
+          Social Links
+        </h3>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="mt"><%= form.label :github_url, "GitHub URL" %></p>
+            <p class="mt-sm"><%= form.text_field :github_url, class: "form-text-field" %></p>
+          </div>
+          <div class="form-group">
+            <p class="mt"><%= form.label :linkedin_url, "LinkedIn URL" %></p>
+            <p class="mt-sm"><%= form.text_field :linkedin_url, class: "form-text-field" %></p>
+          </div>
+        </div>
+      </div>
 
-      <p class="mt"><%= form.label :password, "Password" %></p>
-      <p class="mt-sm"><%= form.password_field :password, class: "form-text-field" %></p>
+      <div class="form-section">
+        <h3 class="edit-section-title">
+          <i class="fa-solid fa-gear"></i> 
+          Professional Information
+        </h3>
+        <p class="mt"><%= form.label :education, "Education" %></p>
+        <p class="mt-sm"><%= form.text_area :education, class: "form-text-field", rows: 5 %></p>
 
-      <p class="mt"><%= form.label :password_confirmation, "Password" %></p>
-      <p class="mt-sm"><%= form.password_field :password_confirmation, class: "form-text-field" %></p>
+        <p class="mt"><%= form.label :experience, "Experience" %></p>
+        <p class="mt-sm"><%= form.text_area :experience, class: "form-text-field", rows: 5 %></p>
 
-      <p class="mt"><%= form.label :avatar, "Profile Picture" %></p>
-      <p class="mt-sm"><%= form.file_field :avatar, class: "form-text-field" %></p>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="mt"><%= form.label :tech_stack, "Tech Stack" %></p>
+            <p class="mt-sm"><%= form.text_area :tech_stack, class: "form-text-field", rows: 5 %></p>
+          </div>
+          <div class="form-group">
+            <p class="mt"><%= form.label :languages, "Languages" %></p>
+            <p class="mt-sm"><%= form.text_area :languages, class: "form-text-field", rows: 5 %></p>
+          </div>
+        </div>
+      </div>
 
-      <p class="mt-lg"><%= form.submit "Save", class: "button button-main" %>
-      <span class="text-sm">or <%= link_to "back", :back %></span>
-      </p>
+      <div class="form-actions">
+        <p class="mt-lg">
+          <%= form.submit "Save", class: "button button-main" %>
+          <span class="text-sm">or <%= link_to "back", :back %></span>
+        </p>
+      </div>
     <% end %>
-  </div>
-  
-  <div class="mt-lg">
-    <%= button_to "Delete profile", user_path(@user),
-      method: :delete,
-      onclick: "return confirm('Do you want to delete your profile?');",
-      class: "text-red text-sm" %>
-
   </div>
 </div>

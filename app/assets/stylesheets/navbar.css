@@ -7,8 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+  background-color: var(--white);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
@@ -16,28 +15,48 @@
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
-  color: #1E293B;
+  color: inherit;
+  height: 45px;
 }
 
 .nav-logo:hover {
-  color: #1e293bd2;
+  color: var(--transparent-logo);
 }
 
 .user-info {
   display: flex;
   align-items: center;
   gap: .5rem;
+  position: relative;
+}
+
+.user-label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   font-weight: 600;
 }
 
+.user-label:hover {
+  opacity: 80%;
+}
+
+.nickname {
+  text-decoration: none;
+  color: var(--black);
+}
+
 .avatar {
-  width: 35px; 
+  width: 35px;
   height: 35px;
-  border-radius: 50%; 
+  border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px; 
-  border: 2px solid #0ea4e9;
+  margin-right: 10px;
+  border: 2px solid var(--main);
 }
 
 .navbar-right {
@@ -45,4 +64,59 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 150px;
+  background-color: var(--white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 1rem;
+  padding: 0.5rem 0;
+  border-left: 3px var(--main) solid;
+}
+
+.dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdown-item:hover {
+  color: var(--main);
+}
+
+.dropdown-item {
+  display: block;
+  padding: .6rem 1rem;
+  color: var(--dark-grey);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  color: var(--main);
+}
+
+.user-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.profile-link {
+  border-bottom: 1px var(--light-grey) solid;
 }

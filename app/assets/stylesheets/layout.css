@@ -1,11 +1,11 @@
 body {
-  background: #F0F9FF;
+  background: var(--pale-blue);
   display: flex;
   justify-content: center;
 }
 
 .main {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
   width: 100%;
 }
@@ -13,10 +13,11 @@ body {
 .wrapper {
   width: 100%;
 }
+
 .container {
   margin: 1rem auto;
   padding: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
   border: none;

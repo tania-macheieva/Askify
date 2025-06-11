@@ -1,0 +1,98 @@
+<div class="container profile-container">
+  <div class="profile-header">
+    <div class="avatar-container">
+      <%= image_tag(@user.avatar&.attached? ? url_for(@user.avatar) : asset_path("default-avatar.png"), class: "profile-avatar") %>
+    </div>
+
+    <div class="profile-user-info mt-lg">
+      <h2 class="title-lg text-bold mt-lg"><%= @user.name %></h2>
+      <h2 class="title-sm text-dark mb"><%= @user.nickname %></h2>
+
+      <% if @user.position.present? %>
+        <p class="text-dark text-bold mt-lg"><%= @user.position %></p>
+      <% end %>
+
+      <div class="profile-social-links mt mb">
+        <% if current_user == @user %>
+          <button id="copy-email" class="social-button email" data-email="<%= @user.email %>">
+            <i class="fa-solid fa-envelope"></i>
+            <span id="email-text"><%= @user.email %></span>
+          </button>
+        <% end %>
+
+        <% if @user.github_url.present? %>
+          <%= link_to @user.github_url, target: "_blank", rel: "noopener", class: "social-button github" do %>
+            <i class="fa-brands fa-github"></i> GitHub
+          <% end %>
+        <% end %>
+
+        <% if @user.linkedin_url.present? %>
+          <%= link_to @user.linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if current_user == @user %>
+        <%= link_to 'Edit Profile', edit_user_path(@user), class: 'button button-main mt' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="profile-career-section mt-lg">
+    <% if @user.education.present? %>
+      <div class="profile-education mb">
+        <h4 class="section-title mb-sm">
+          <i class="fa-solid fa-graduation-cap"></i> Education
+        </h4>
+        <p><%= @user.education %></p>
+      </div>
+    <% end %>
+
+    <% if @user.experience.present? %>
+      <div class="profile-experience mb">
+        <h4 class="section-title mb-sm">
+          <i class="fa-solid fa-suitcase"></i> Experience
+        </h4>
+        <p><%= @user.experience %></p>
+      </div>
+    <% end %>
+
+    <% if @user.tech_stack.present? %>
+      <div class="profile-tech-stack mb">
+        <h4 class="section-title mb-sm">
+          <i class="fa-solid fa-laptop"></i> Tech Stack
+        </h4>
+        <p><%= @user.tech_stack %></p>
+      </div>
+    <% end %>
+
+    <% if @user.languages.present? %>
+      <div class="profile-languages mb-md">
+        <h4 class="section-title mb-sm">
+          <i class="fa-solid fa-globe"></i> Languages
+        </h4>
+        <p><%= @user.languages %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="profile-questions-section">
+    <%= render 'questions/form', question: @new_question %>
+
+    <h4 class="section-title mb-sm">
+      <%= @received_questions.count %>
+      <%= question_count_text(@received_questions.count) %>
+    </h4>
+
+    <% if @received_questions.present? %>
+      <% @received_questions.each do |question| %>
+        <div class="question-container">
+          <%= render question %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= @user == current_user ? "You" : @user.nickname %> haven’t received any questions yet.</p>
+    <% end %>
+  </div>
+</div>
