@@ -1,7 +1,11 @@
 <div class="container profile-container">
   <div class="profile-header">
     <div class="avatar-container">
-      <%= image_tag(@user.avatar&.attached? ? url_for(@user.avatar) : asset_path("default-avatar.png"), class: "profile-avatar") %>
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, alt: @user.name, class: "profile-avatar" %>
+      <% else %>
+        <%= @user.name.first.upcase %>
+      <% end %>
     </div>
 
     <div class="profile-user-info mt-lg">
@@ -19,18 +23,8 @@
             <span id="email-text"><%= @user.email %></span>
           </button>
         <% end %>
-
-        <% if @user.github_url.present? && (safe_github_url = safe_github_url(@user.github_url)) %>
-          <%= link_to safe_github_url, target: "_blank", rel: "noopener", class: "social-button github" do %>
-            <i class="fa-brands fa-github"></i> GitHub
-          <% end %>
-        <% end %>
-
-        <% if @user.linkedin_url.present? && (safe_linkedin_url = safe_linkedin_url(@user.linkedin_url)) %>
-          <%= link_to safe_linkedin_url, target: "_blank", rel: "noopener", class: "social-button linkedin" do %>
-            <i class="fa-brands fa-linkedin"></i> LinkedIn
-          <% end %>
-        <% end %>
+        <%= render 'social_link', url: @user.github_url, validator: method(:safe_github_url), platform: "github", icon: "github", label: "GitHub" %>
+        <%= render 'social_link', url: @user.linkedin_url, validator: method(:safe_linkedin_url), platform: "linkedin", icon: "linkedin-in", label: "LinkedIn" %>
       </div>
 
       <% if current_user == @user %>
@@ -43,7 +37,7 @@
       <% if @user.education.present? %>
         <div class="profile-education mb">
           <h4 class="section-title mb-sm">
-            <i class="fa-solid fa-graduation-cap"></i> Education
+            <i class="fa-solid fa-graduation-cap mr-sm"></i> Education
           </h4>
           <p><%= @user.education %></p>
         </div>
@@ -52,7 +46,7 @@
       <% if @user.experience.present? %>
         <div class="profile-experience mb">
           <h4 class="section-title mb-sm">
-            <i class="fa-solid fa-suitcase"></i> Experience
+            <i class="fa-solid fa-suitcase mr-sm"></i> Experience
           </h4>
           <p><%= @user.experience %></p>
         </div>
@@ -61,7 +55,7 @@
       <% if @user.tech_stack.present? %>
         <div class="profile-tech-stack mb">
           <h4 class="section-title mb-sm">
-            <i class="fa-solid fa-laptop"></i> Tech Stack
+            <i class="fa-solid fa-laptop mr-sm"></i> Tech Stack
           </h4>
           <p><%= @user.tech_stack %></p>
         </div>
@@ -70,7 +64,7 @@
       <% if @user.languages.present? %>
         <div class="profile-languages mb-md">
           <h4 class="section-title mb-sm">
-            <i class="fa-solid fa-globe"></i> Languages
+            <i class="fa-solid fa-globe mr-sm"></i> Languages
           </h4>
           <p><%= @user.languages %></p>
         </div>

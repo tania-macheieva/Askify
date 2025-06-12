@@ -57,6 +57,14 @@
   object-fit: cover;
   margin-right: 10px;
   border: 2px solid var(--main);
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: var(--main);
 }
 
 .navbar-right {

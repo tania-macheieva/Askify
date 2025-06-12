@@ -1,0 +1,5 @@
+<% if url.present? && (safe = validator.call(url)) %>
+  <%= link_to safe, target: "_blank", rel: "noopener", class: "social-button #{platform}" do %>
+    <i class="fab fa-<%= icon %>"></i> <%= label %>
+  <% end %>
+<% end %>

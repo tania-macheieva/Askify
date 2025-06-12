@@ -1,0 +1,119 @@
+.card-user-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  padding: 30px;
+}
+
+.card-user-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--light-grey);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+.card-causer-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--white);
+  margin-right: 15px;
+  text-transform: uppercase;
+  border: 2px solid var(--main);
+}
+
+.card-user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-user-info {
+  flex: 1;
+}
+
+.card-user-names {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+.card-user-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.2;
+}
+
+.card-user-nickname {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--main)
+}
+
+.card-user-position {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-grey);
+  margin-top: 4px;
+  padding: 5px 10px;
+  background-color: var(--pale-blue);
+  border-radius: 6px;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-user-section {
+  margin-bottom: 18px;
+}
+
+.card-section-title {
+  font-size: 15px !important;
+  margin-bottom: 6px; 
+}
+
+.card-section-content {
+  font-size: 14px;
+  color: var(--dark-grey);
+  font-weight: 400;
+  line-height: 1.6;
+  background-color: var(--pale-blue);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--main);
+}
+
+.card-empty-content {
+  font-style: italic;
+  color: #9ca3af;
+  background-color: var(--pale-blue);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid  var(--light-grey);
+}
+
+.card-user-footer { 
+  margin-top: auto;
+  padding-top: auto; 
+  border-top: 1px solid var(--light-grey);
+}
+

@@ -27,6 +27,7 @@
       <nav class="navbar">
         <p class="title-lg text-bold">
           <%= link_to root_path, class: "nav-logo" do %>
+          
             <%= image_tag "logo.png", alt: "Avatar", class: "nav-logo" %>
             Askify
           <% end %>
@@ -41,7 +42,12 @@
                 </span>
 
                 <%= link_to user_path(current_user) do %>
-                  <%= image_tag(current_user.avatar.attached? ? current_user.avatar : "default-avatar.png", class: "avatar") %>
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar, class: "avatar" %>
+                  <% else %>
+                    <div class="avatar"><%= current_user.name.first.upcase %></div>
+                  <% end %>
+
                 <% end %>
 
               </div>

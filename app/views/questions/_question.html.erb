@@ -1,7 +1,11 @@
 <div class="flex space-x">  
   <div> 
     <%= link_to user_path(question.user) do %>
-      <%= image_tag(question.user.avatar.attached? ? question.user.avatar : "default-avatar.png", class: "avatar") %>
+      <% if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, class: "avatar" %>
+      <% else %>
+        <div class="avatar avatar-initial"><%= current_user.name.first.upcase %></div>
+      <% end %>
     <% end %>
   </div>
   <div class="full-width"> 

@@ -16,7 +16,7 @@
   font-weight: 700;
   outline: none;
   transition: background-color .5s ease;
-
+  text-align: center;
 }
 
 .button-main:hover {

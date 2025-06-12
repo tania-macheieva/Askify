@@ -13,7 +13,15 @@
 .avatar-container {
   width: 120px;
   height: 120px;
+  background: var(--main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
   border-radius: 50%;
+  color: var(--white);
+  text-transform: uppercase;
   overflow: hidden;
   position: absolute;
   top: -85px;
@@ -49,36 +57,53 @@
 }
 
 .profile-social-links .social-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  background-color: var(--white-smoke);
-  transition: all 0.2s ease-in-out;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .profile-social-links .social-button i {
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
-.profile-social-links .social-button:hover {
-  background-color: var(--light-grey);
+.profile-social-links .social-button.email {
+  background-color: var(--dark-red);
 }
 
-.profile-social-links .github {
-  color: var(--black);
+.profile-social-links .social-button.email:hover {
+  background-color: var(--darker-red);
 }
 
-.profile-social-links .linkedin {
-  color: var(--blue);
+.profile-social-links .social-button.github {
+  background-color: var(--black);
 }
 
-.profile-social-links .email {
-  color: var(--dark-red);
+.profile-social-links .social-button.github:hover {
+  background-color: var(--darker-black); 
+}
+
+.profile-social-links .social-button.linkedin {
+  background-color: var(--blue); 
+}
+
+.profile-social-links .social-button.linkedin:hover {
+  background-color: var(--darker-blue); 
+}
+
+.profile-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .profile-career-section {

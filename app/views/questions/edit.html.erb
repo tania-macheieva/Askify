@@ -1,7 +1,7 @@
 <div class="container">
   <div class="question-header mb">
     <h2 class="title-lg mb">Edit question for <%= @receiver.nickname %></h2>
-    <%= link_to fa_icon('right-from-bracket'), questions_path, class: "exit" %>
+    <%= link_to fa_icon('right-from-bracket'), :back, class: "exit" %>
   </div>
 
   <%= render 'form', question: @question %>

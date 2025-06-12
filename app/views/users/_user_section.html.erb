@@ -1,0 +1,8 @@
+<div class="card-user-section">
+  <div class="card-section-title section-title"><%= title.to_s %></div>
+  <% if content.present? %>
+    <div class="card-section-content"><%= content %></div>
+  <% else %>
+    <div class="card-empty-content"><%= empty_message.to_s %></div>
+  <% end %>
+</div>

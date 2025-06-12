@@ -29,6 +29,11 @@
   resize: none;
 }
 
+.form-text-field::placeholder {
+  color: var(--light-grey);
+  font-style: italic; 
+}
+
 .form-text-field:hover,
 .form-send-area:hover {
   border-color: var(--light-grey);

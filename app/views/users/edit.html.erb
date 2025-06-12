@@ -112,20 +112,35 @@
           <i class="fa-solid fa-gear"></i> 
           Professional Information
         </h3>
-        <p class="mt"><%= form.label :education, "Education" %></p>
-        <p class="mt-sm"><%= form.text_area :education, class: "form-text-field", rows: 5 %></p>
-
-        <p class="mt"><%= form.label :experience, "Experience" %></p>
-        <p class="mt-sm"><%= form.text_area :experience, class: "form-text-field", rows: 5 %></p>
-
+        <p class="mt">
+          <%= form.label :education, "Education" %>
+        </p>
+        <p class="mt-sm">
+          <%= form.text_area :education, class: "form-text-field", rows: 5, placeholder: "e.g., Bachelor's degree in Computer Science" %>
+        </p>
+        <p class="mt">
+          <%= form.label :experience, "Experience" %>
+        </p>
+        <p class="mt-sm">
+          <%= form.text_area :experience, class: "form-text-field", rows: 5, placeholder: "e.g., 3 years at XYZ company" %>
+        </p>
+        
         <div class="form-row">
           <div class="form-group">
-            <p class="mt"><%= form.label :tech_stack, "Tech Stack" %></p>
-            <p class="mt-sm"><%= form.text_area :tech_stack, class: "form-text-field", rows: 5 %></p>
+            <p class="mt">
+              <%= form.label :tech_stack, "Tech Stack" %>
+            </p>
+            <p class="mt-sm">
+              <%= form.text_area :tech_stack, class: "form-text-field", rows: 5, placeholder: "e.g., Ruby on Rails, JavaScript" %>
+            </p>
           </div>
           <div class="form-group">
-            <p class="mt"><%= form.label :languages, "Languages" %></p>
-            <p class="mt-sm"><%= form.text_area :languages, class: "form-text-field", rows: 5 %></p>
+            <p class="mt">
+              <%= form.label :languages, "Languages" %>
+            </p>
+            <p class="mt-sm">
+              <%= form.text_area :languages, class: "form-text-field", rows: 5, placeholder: "e.g., English, Ukrainian" %>
+            </p>
           </div>
         </div>
       </div>
