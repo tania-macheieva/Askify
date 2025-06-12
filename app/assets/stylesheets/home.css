@@ -205,6 +205,8 @@
   background-color: var(--pale-blue);
   padding: 12px;
   border-radius: 8px;
+  border-bottom-left-radius: 0%;
+  border-top-left-radius: 0%;
   border-left: 3px solid var(--main);
 }
 
@@ -215,6 +217,8 @@
   background-color: var(--pale-blue);
   padding: 12px;
   border-radius: 8px;
+  border-bottom-left-radius: 0%;
+  border-top-left-radius: 0%;
   border-left: 3px solid var(--light-grey);
 }
 
