@@ -1,16 +1,24 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
+  def index
+    @users = User.all.order(created_at: :desc)
+  end
+
   def new
     session[:current_time] = Time.now
     @user = User.new
   end
 
   def create
-    user_params
-    User.create(user_params)
+    @user = User.new(user_params)
 
-    redirect_to root_path, notice: "Successfully signed up!"
+    if @user.save
+      redirect_to root_path, notice: "Successfully signed up!"
+    else
+      flash.now[:alert] = "Incorrectly filled fields!"
+      render :new
+    end
   end
 
   def show
@@ -18,7 +26,6 @@ class UsersController < ApplicationController
     @received_questions = @user.received_questions.order(created_at: :desc)
     @new_question = Question.new
   end
-
 
   def edit
   end
@@ -30,7 +37,7 @@ class UsersController < ApplicationController
     end
 
     if @user.update(user_params)
-      redirect_to root_path, notice: "Successfully user`s data updated!"
+      redirect_to root_path, notice: "Successfully user's data updated!"
     else
       flash.now[:alert] = "Errors occurred when trying to save the user."
       render :edit
@@ -39,12 +46,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-
     session.delete(:user_id)
-
     redirect_to root_path, notice: "The user successfully removed!"
   end
-
 
   private
 
@@ -58,6 +62,7 @@ class UsersController < ApplicationController
       :password_confirmation, :avatar,
       :github_url, :linkedin_url,
       :education, :experience, :tech_stack, :languages, :position,
-      :remove_avatar)
+      :remove_avatar
+    )
   end
 end

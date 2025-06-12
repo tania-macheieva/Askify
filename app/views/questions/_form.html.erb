@@ -17,5 +17,9 @@
     </div>
   </div>
 
-  <%= form.hidden_field :receiver_id, value: @user.id %>
+  <% if @user&.id %>
+    <%= form.hidden_field :receiver_id, value: @user.id %>
+  <% elsif params[:receiver_id] %>
+    <%= form.hidden_field :receiver_id, value: params[:receiver_id] %>
+  <% end %>
 <% end %>

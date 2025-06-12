@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [ :update, :destroy, :show, :edit ]
+  before_action :set_question, only: [ :update, :destroy, :edit ]
+  before_action :check_question_owner, only: [ :edit, :update, :destroy ]
 
   def create
     @question = Question.new(question_params)
@@ -18,18 +19,10 @@ class QuestionsController < ApplicationController
     end
   end
 
-
   def destroy
     receiver = @question.receiver
     @question.destroy
     redirect_back fallback_location: user_path(receiver), notice: "Your question deleted successfully!"
-  end
-
-  def show
-    @user = @question.user
-    @receiver = @question.receiver
-    @received_questions = @user.received_questions
-    @new_question = Question.new
   end
 
   def index
@@ -44,8 +37,8 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @user = @question.user
     @receiver = @question.receiver
+    @sender = @question.user
     session[:return_to] = request.referer if request.referer
   end
 
@@ -62,6 +55,12 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def check_question_owner
+    unless @question.user == current_user
+      redirect_back fallback_location: root_path, alert: "You can only edit your own questions."
+    end
   end
 
   def question_params

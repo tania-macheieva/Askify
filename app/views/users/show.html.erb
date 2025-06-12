@@ -38,44 +38,45 @@
       <% end %>
     </div>
   </div>
+  <% if @user.education.present? || @user.experience.present? || @user.tech_stack.present? || @user.languages.present? %>
+    <div class="profile-career-section mt-lg">
+      <% if @user.education.present? %>
+        <div class="profile-education mb">
+          <h4 class="section-title mb-sm">
+            <i class="fa-solid fa-graduation-cap"></i> Education
+          </h4>
+          <p><%= @user.education %></p>
+        </div>
+      <% end %>
 
-  <div class="profile-career-section mt-lg">
-    <% if @user.education.present? %>
-      <div class="profile-education mb">
-        <h4 class="section-title mb-sm">
-          <i class="fa-solid fa-graduation-cap"></i> Education
-        </h4>
-        <p><%= @user.education %></p>
-      </div>
-    <% end %>
+      <% if @user.experience.present? %>
+        <div class="profile-experience mb">
+          <h4 class="section-title mb-sm">
+            <i class="fa-solid fa-suitcase"></i> Experience
+          </h4>
+          <p><%= @user.experience %></p>
+        </div>
+      <% end %>
 
-    <% if @user.experience.present? %>
-      <div class="profile-experience mb">
-        <h4 class="section-title mb-sm">
-          <i class="fa-solid fa-suitcase"></i> Experience
-        </h4>
-        <p><%= @user.experience %></p>
-      </div>
-    <% end %>
+      <% if @user.tech_stack.present? %>
+        <div class="profile-tech-stack mb">
+          <h4 class="section-title mb-sm">
+            <i class="fa-solid fa-laptop"></i> Tech Stack
+          </h4>
+          <p><%= @user.tech_stack %></p>
+        </div>
+      <% end %>
 
-    <% if @user.tech_stack.present? %>
-      <div class="profile-tech-stack mb">
-        <h4 class="section-title mb-sm">
-          <i class="fa-solid fa-laptop"></i> Tech Stack
-        </h4>
-        <p><%= @user.tech_stack %></p>
-      </div>
-    <% end %>
-
-    <% if @user.languages.present? %>
-      <div class="profile-languages mb-md">
-        <h4 class="section-title mb-sm">
-          <i class="fa-solid fa-globe"></i> Languages
-        </h4>
-        <p><%= @user.languages %></p>
-      </div>
-    <% end %>
-  </div>
+      <% if @user.languages.present? %>
+        <div class="profile-languages mb-md">
+          <h4 class="section-title mb-sm">
+            <i class="fa-solid fa-globe"></i> Languages
+          </h4>
+          <p><%= @user.languages %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="profile-questions-section">
     <%= render 'questions/form', question: @new_question %>
