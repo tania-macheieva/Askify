@@ -1,38 +1,65 @@
-  <div class="card-user-cards">
-    <% @users.each do |user| %>
-      <div class="card-user-card">
-        <div class="card-causer-header">
-          <div class="card-user-avatar">
-            <% if user.avatar.attached? %>
-              <%= image_tag user.avatar, alt: user.name %>
-            <% else %>
-              <%= user.name.first.upcase %>
-            <% end %>
-          </div>
+<div class="user-search-container">
+  <%= form_with url: request.path, method: :get, local: true, class: "user-search-form" do |form| %>
+    <div class="search-input-group">
+      <div class="search-input-wrapper">
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+        <%= form.text_field :search,
+            value: params[:search],
+            placeholder: "Search by name, nickname, or position...",
+            class: "form-text-field search-input" %>
+      </div>
+      <%= form.submit "Search", class: "button button-search" %>
+      <% if params[:search].present? %>
+        <%= link_to "Clear", request.path, class: "button button-clear" %>
+      <% end %>
+    </div>
 
-          <div class="card-user-info">
-            <div class="card-user-names">
-              <div class="card-user-name"><%= user.name %></div>
-              <div class="card-user-nickname">@<%= user.nickname %></div>
-            </div>
-            <div class="card-user-position">
-              <%= user.position.present? ? user.position : "Position not specified" %>
-            </div>
-          </div>
+  <% end %>
+
+</div>
+
+<div class="card-user-cards">
+  <% if @users.empty? && params[:search].present? %>
+    <div class="no-users-found">
+      <div class="no-users-icon">
+        <i class="fas fa-user-slash"></i>
+      </div>
+      <h3>No users found</h3>
+      <p>Try adjusting your search keywords.</p>
+    </div>
+  <% end %>
+  <% @users.each do |user| %>
+    <div class="card-user-card">
+      <div class="card-causer-header">
+        <div class="card-user-avatar">
+          <% if user.avatar.attached? %>
+            <%= image_tag user.avatar, alt: user.name %>
+          <% else %>
+            <%= user.nickname.first.upcase %>
+          <% end %>
         </div>
 
-        <%= render 'user_section', title: 'Tech Stack', content: user.tech_stack, empty_message: 'Tech stack not specified' %>
-        <%= render 'user_section', title: 'Experience', content: truncate(user.experience.to_s, length: 150), empty_message: 'No experience specified' %>
-
-
-        <div class="card-user-footer">
-          <div class="profile-social-links">
-            <%= render 'social_link', url: user.github_url, validator: method(:safe_github_url), platform: "github", icon: "github", label: "GitHub" %>
-            <%= render 'social_link', url: user.linkedin_url, validator: method(:safe_linkedin_url), platform: "linkedin", icon: "linkedin-in", label: "LinkedIn" %>
+        <div class="card-user-info">
+          <div class="card-user-names">
+            <div class="card-user-name"><%= user.name %></div>
+            <div class="card-user-nickname">@<%= user.nickname %></div>
           </div>
-
-          <%= link_to "View profile", user_path(user), class: "button button-main profile-btn" %>
+          <div class="card-user-position">
+            <%= user.position.present? ? user.position : "Position not specified" %>
+          </div>
         </div>
       </div>
-    <% end %>
-  </div>
+
+      <%= render 'user_section', title: 'Tech Stack', content: user.tech_stack, empty_message: 'Tech stack not specified' %>
+      <%= render 'user_section', title: 'Experience', content: truncate(user.experience.to_s, length: 150), empty_message: 'No experience specified' %>
+      
+      <div class="card-user-footer">
+        <div class="profile-social-links">
+          <%= render 'social_link', url: user.github_url, validator: method(:safe_github_url), platform: "github", icon: "github", label: "GitHub" %>
+          <%= render 'social_link', url: user.linkedin_url, validator: method(:safe_linkedin_url), platform: "linkedin", icon: "linkedin-in", label: "LinkedIn" %>
+        </div>
+        <%= link_to "View profile", user_path(user), class: "button button-main profile-btn" %>
+      </div>
+    </div>
+  <% end %>
+</div>

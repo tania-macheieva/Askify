@@ -2,7 +2,19 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.all
+
+    # Search functionality
+    if params[:search].present?
+      search_query = params[:search].strip.downcase
+
+      @users = @users.where(
+        "LOWER(name) LIKE ? OR LOWER(nickname) LIKE ? OR LOWER(position) LIKE ?",
+        "%#{search_query}%", "%#{search_query}%", "%#{search_query}%"
+      )
+    end
+
+    @users = @users.order(created_at: :desc)
   end
 
   def new

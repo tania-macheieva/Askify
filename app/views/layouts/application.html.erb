@@ -45,7 +45,7 @@
                   <% if current_user.avatar.attached? %>
                     <%= image_tag current_user.avatar, class: "avatar" %>
                   <% else %>
-                    <div class="avatar"><%= current_user.name.first.upcase %></div>
+                    <div class="avatar"><%= current_user.nickname.first.upcase %></div>
                   <% end %>
 
                 <% end %>

@@ -29,8 +29,10 @@
   resize: none;
 }
 
-.form-text-field::placeholder {
-  color: var(--light-grey);
+.form-text-field::placeholder,
+.form-text-area::placeholder
+{
+  color: var(--silver-grey);
   font-style: italic; 
 }
 

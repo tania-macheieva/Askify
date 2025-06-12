@@ -4,7 +4,7 @@
       <% if @user.avatar.attached? %>
         <%= image_tag @user.avatar, alt: @user.name, class: "profile-avatar" %>
       <% else %>
-        <%= @user.name.first.upcase %>
+        <%= @user.nickname.first.upcase %>
       <% end %>
     </div>
 
