@@ -53,21 +53,21 @@
         <div class="form-row">
           <div class="form-group">
             <p class="mt"><%= form.label :name, "Name" %></p>
-            <p class="mt-sm"><%= form.text_field :name, class: "form-text-field" %></p>
+            <p class="mt-sm"><%= form.text_field :name, class: "form-text-field", required: true %></p>
           </div>
           <div class="form-group">
             <p class="mt"><%= form.label :nickname, "Nickname" %></p>
-            <p class="mt-sm"><%= form.text_field :nickname, class: "form-text-field" %></p>
+            <p class="mt-sm"><%= form.text_field :nickname, class: "form-text-field", required: true %></p>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <p class="mt"><%= form.label :email, "Email" %></p>
-            <p class="mt-sm"><%= form.text_field :email, class: "form-text-field" %></p>
+            <p class="mt-sm"><%= form.text_field :email, class: "form-text-field", required: true %></p>
           </div>
           <div class="form-group">
             <p class="mt"><%= form.label :position, "Position" %></p>
-            <p class="mt-sm"><%= form.text_field :position, class: "form-text-field" %></p>
+            <p class="mt-sm"><%= form.text_field :position, class: "form-text-field", required: true %></p>
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :nickname, use: :slugged
 
-
   has_secure_password
   has_one_attached :avatar
   has_many :questions
@@ -11,6 +10,10 @@ class User < ApplicationRecord
   before_save :downcase_nickname
 
   validates :email, presence: true, uniqueness: true
+  validates :nickname, presence: true
+  validates :name, presence: true
+  validates :password, presence: true, on: :create
+  validates :position, presence: true
 
   validates :github_url, :linkedin_url, format: {
     with: /\Ahttps?:\/\/.+\z/,
