@@ -71,12 +71,12 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(nickname: params[:nickname])
   end
 
   def set_current_user
     @user = current_user
-    unless @user && @user.id.to_s == params[:id]
+    unless @user && @user.nickname == params[:nickname]
       redirect_to root_path, alert: "Access denied."
     end
   end

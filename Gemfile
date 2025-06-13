@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "ruby-lsp"
 gem "fiddle"
+gem "friendly_id", "~> 5.4"
 
 gem "font-awesome-rails"
 

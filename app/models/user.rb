@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :nickname, use: :slugged
+
+
   has_secure_password
   has_one_attached :avatar
   has_many :questions
@@ -20,10 +24,13 @@ class User < ApplicationRecord
     nickname.downcase!
   end
 
+  def should_generate_new_friendly_id?
+    nickname_changed? || super
+  end
+
   private
 
   def validate_github_url
-    return unless github_url.present?
     uri = URI.parse(github_url)
     unless uri.host&.downcase&.end_with?("github.com")
       errors.add(:github_url, "must be a GitHub URL")
@@ -33,7 +40,6 @@ class User < ApplicationRecord
   end
 
   def validate_linkedin_url
-    return unless linkedin_url.present?
     uri = URI.parse(linkedin_url)
     unless uri.host&.downcase&.include?("linkedin.com")
       errors.add(:linkedin_url, "must be a LinkedIn URL")
