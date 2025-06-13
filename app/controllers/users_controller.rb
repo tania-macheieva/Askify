@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: [ :index, :show ]
+  before_action :require_login, except: [ :index, :new, :create ]
   before_action :set_user, only: [ :show ]
   before_action :set_current_user, only: [ :edit, :update, :destroy ]
 
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   def require_login
     unless current_user
-      redirect_to root_path, alert: "You must be logged in to access this section"
+      redirect_to new_session_path, alert: "You must be logged in to view user profiles"
     end
   end
 
