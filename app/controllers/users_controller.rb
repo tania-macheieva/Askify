@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   def require_login
     unless current_user
-      redirect_to new_session_path, alert: "You must be logged in to view user profiles"
+      redirect_to sign_in_path, alert: "You must be logged in to view user profiles!"
     end
   end
 
