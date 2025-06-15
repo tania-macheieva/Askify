@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "errors/not_found"
+  get "errors/internal_server_error"
   root to: "users#index"
 
   get "/sign_in", to: "sessions#new", as: :sign_in

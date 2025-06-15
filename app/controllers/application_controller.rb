@@ -10,13 +10,13 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
-  def render_404(exception)
-    logger.error("Record not found: #{exception.message}")
+  def render_404(exception = nil)
+    logger.error("404 Not Found: #{exception.message}") if exception
     redirect_to "/404"
   end
 
-  def render_500(exception)
-    logger.error("Internal server error: #{exception.message}")
+  def render_500(exception = nil)
+    logger.error("500 Internal Server Error: #{exception.message}") if exception
     redirect_to "/500"
   end
 end
