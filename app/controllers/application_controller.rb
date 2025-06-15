@@ -12,11 +12,11 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception = nil)
     logger.error("404 Not Found: #{exception.message}") if exception
-    redirect_to "/404"
+    render template: "public/404", status: :not_found
   end
 
   def render_500(exception = nil)
     logger.error("500 Internal Server Error: #{exception.message}") if exception
-    redirect_to "/500"
+    render template: "public/500", status: :internal_server_error
   end
 end

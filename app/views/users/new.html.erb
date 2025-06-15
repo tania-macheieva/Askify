@@ -34,7 +34,7 @@
         <p class="mt-sm"><%= form.text_field :position, class: "form-text-field" %></p>
 
         <p class="mt"><%= form.label :avatar, "Profile Picture", class: "form-label" %></p>
-        <div class="avatar-upload-wrapper">
+        <div class="avatar-upload-wrapper mt-sm">
           <%= form.file_field :avatar, class: "avatar-input", id: "avatar-upload", hidden: true %>
           <label for="avatar-upload" class="avatar-upload-button">Choose File</label>
           <span id="avatar-filename" class="avatar-filename">No file chosen</span>
