@@ -3,7 +3,6 @@ class QuestionsController < ApplicationController
   before_action :check_question_owner, only: %i[edit update destroy]
 
   def index
-    @user = current_user
     @question = Question.new
     @questions = Question.all
   end
@@ -19,7 +18,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to user_path(@question.receiver), notice: "Your question was sent successfully!"
     else
-      load_user_questions_data
+      load_user_questions_data(@question.receiver)
       flash.now[:alert] = "Please fill in the question field"
       render "users/show"
     end
@@ -28,7 +27,7 @@ class QuestionsController < ApplicationController
   def edit
     @receiver = @question.receiver
     @sender = @question.user
-    session[:return_to] ||= request.referer
+    session[:return_to] = request.referer if request.referer.present?
   end
 
   def update
@@ -62,8 +61,8 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:body, :receiver_id)
   end
 
-  def load_user_questions_data
-    @user = User.friendly.find(params[:question][:receiver_id])
+  def load_user_questions_data(user)
+    @user = user
     @questions = @user.questions.order(created_at: :desc)
     @received_questions = @user.received_questions.order(created_at: :desc)
     @new_question = @question

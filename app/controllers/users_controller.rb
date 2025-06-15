@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
   before_action :require_login, except: [ :index, :new, :create ]
   before_action :set_user, only: [ :show ]
-  before_action :set_current_user, only: [ :edit, :update, :destroy ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
   def index
     @users = User.all
 
     if params[:search].present?
-      search_query = "%#{params[:search].strip.downcase}%"
+      query = "%#{params[:search].strip.downcase}%"
       @users = @users.where(
         "LOWER(name) LIKE :q OR LOWER(nickname) LIKE :q OR LOWER(position) LIKE :q",
-        q: search_query
+        q: query
       )
     end
 
@@ -24,11 +24,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: "Successfully signed up!"
+      redirect_to root_path, notice: "Welcome aboard! You've signed up successfully."
     else
-      flash.now[:alert] = "Incorrectly filled fields!"
+      flash.now[:alert] = "Please check the fields and try again."
       render :new
     end
   end
@@ -42,12 +43,14 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    purge_avatar_if_requested
+    if params.dig(:user, :remove_avatar) == "1"
+      @user.avatar.purge if @user.avatar.attached?
+    end
 
-    if @user.update(user_params)
-      redirect_to root_path, notice: "Successfully user's data updated!"
+    if @user.update(user_params.except(:remove_avatar))
+      redirect_to root_path, notice: "Profile updated successfully!"
     else
-      flash.now[:alert] = "Errors occurred when trying to save the user."
+      flash.now[:alert] = "Oops! Something went wrong."
       render :edit
     end
   end
@@ -55,37 +58,26 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     reset_session
-    redirect_to root_path, notice: "The user successfully removed!"
+    redirect_to root_path, notice: "Account deleted. Hope to see you again!"
   end
 
   private
 
   def require_login
-    unless current_user
-      redirect_to sign_in_path, alert: "You must be logged in to view user profiles!"
-    end
-  end
+    return if current_user
 
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    redirect_to sign_in_path, alert: "Please log in to continue."
   end
 
   def set_user
-    @user = User.find_by(nickname: params[:nickname])
+    @user = User.friendly.find(params[:nickname])
   end
 
-  def set_current_user
+  def authorize_user!
     @user = current_user
-    unless @user && @user.nickname == params[:nickname]
+    unless @user&.nickname == params[:nickname]
       redirect_to root_path, alert: "Access denied."
     end
-  end
-
-  def purge_avatar_if_requested
-    return unless params.dig(:user, :remove_avatar) == "1"
-
-    @user.avatar.purge if @user.avatar.attached?
-    params[:user].delete(:remove_avatar)
   end
 
   def user_params

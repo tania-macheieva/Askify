@@ -1,42 +1,41 @@
 .button {
+  display: inline-block;
+  padding: 13px 25px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
   border: none;
   border-radius: 2rem;
-  color: var(--white);
-  display: inline-block;
-  font-size: 15px;
-  padding: 13px 25px;
-  text-decoration: none;
   cursor: pointer;
-  font-weight: 600;
+  outline: none;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.button-main,
+.button-danger {
+  font-weight: 700;
+  background-color: var(--white);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .button-main {
   border: 1px solid var(--main);
-  background-color: var(--white);
   color: var(--main);
-  font-weight: 700;
-  outline: none;
-  transition: background-color .5s ease;
   text-align: center;
 }
 
 .button-main:hover {
-  transition: background-color .5s ease;
   background-color: var(--main);
   color: var(--white);
 }
 
 .button-danger {
   border: 1px solid var(--red);
-  background-color: var(--white);
   color: var(--red);
-  font-weight: 700;
-  outline: none;
-  transition: background-color .5s ease;
 }
 
 .button-danger:hover {
-  transition: background-color .5s ease;
   background-color: var(--red);
   color: var(--white);
 }
@@ -47,13 +46,13 @@
 
 .send-button {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-self: flex-end;
+  border: none;
   border-radius: 100%;
   padding: 15px;
-  border: none;
   background-color: transparent;
   margin-bottom: 4px;
   margin-right: 4px;
-  font-size: large;
+  font-size: 1.125rem;
 }

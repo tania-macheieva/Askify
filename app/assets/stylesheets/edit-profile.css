@@ -11,20 +11,20 @@
 }
 
 .avatar-preview {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  margin: 0 auto;
   border: 2px dashed var(--light-grey);
+  border-radius: 50%;
   background: var(--pale-blue);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-  overflow: hidden;
-  margin: 0 auto;
 }
 
 .avatar-image {
@@ -40,31 +40,27 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: var(--dark-grey);
   font-size: 14px;
+  color: var(--dark-grey);
   text-align: center;
 }
 
 .avatar-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--transparent-dark);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  background: var(--transparent-dark);
+  color: var(--white);
   opacity: 0;
   transition: opacity 0.3s ease;
-  color: var(--white);
 }
 
 .avatar-preview:hover .avatar-overlay {
   opacity: 1;
 }
-
 
 .avatar-remove-btn {
   display: none;
@@ -76,26 +72,24 @@
   display: flex;
 }
 
-@keyframes slideInUp {
-  0% {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .avatar-input {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .avatar-hint {
@@ -112,20 +106,20 @@
   margin-bottom: 2.5rem;
   padding: 1.5rem;
   background: var(--dusty-white);
-  border-radius: 10px;
   border: 1px solid var(--light-grey);
+  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 .edit-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--black);
   border-bottom: 2px solid var(--light-grey);
   padding-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .form-row {
@@ -146,13 +140,13 @@
 }
 
 .delete-button {
+  border: none;
   padding: 0.5rem 1rem;
   background: none;
   color: var(--red);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: none;
 }
 
 @media (max-width: 768px) {

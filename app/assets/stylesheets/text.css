@@ -1,48 +1,48 @@
-body {
-  color: var(--black);   
-  font-family: 'Inter', sans-serif;
-}
+  body {
+    color: var(--black);   
+    font-family: 'Inter', sans-serif;
+  }
 
-a, button {
-  color: var(--main);   
-}
+  a, button {
+    color: var(--main);   
+  }
 
-.title-lg {
-  font-size: 175%;
-}
+  .title-lg {
+    font-size: 175%;
+  }
 
-.title-md, .title {
-  font-size: 150%;
-}
+  .title-md, .title {
+    font-size: 150%;
+  }
 
-.title-sm {
-  font-size: 125%;
-}
+  .title-sm {
+    font-size: 125%;
+  }
 
-.text-lg {
-  font-size: 80%;
-}
+  .text-lg {
+    font-size: 80%;
+  }
 
-.subtitle {
-  font-style: italic;
-}
+  .subtitle {
+    font-style: italic;
+  }
 
-.text-bold {
-  font-weight: 600;
-}
+  .text-bold {
+    font-weight: 600;
+  }
 
-.text-dark {
-  color: var(--dark-grey);
-}
+  .text-dark {
+    color: var(--dark-grey);
+  }
 
-.text-grey {
-  color: var(--grey);
-}
+  .text-grey {
+    color: var(--grey);
+  }
 
-.text-red {
-  color: var(--red);
-}
+  .text-red {
+    color: var(--red);
+  }
 
-.no-underline {
-  text-decoration: none;
-}
+  .no-underline {
+    text-decoration: none;
+  }

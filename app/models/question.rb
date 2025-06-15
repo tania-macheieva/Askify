@@ -9,8 +9,8 @@ class Question < ApplicationRecord
 
   def slug_candidates
     [
-      :truncated_body,
-      [ :truncated_body, :id ]
+      slug_base,
+      [ slug_base, id ]
     ]
   end
 
@@ -20,7 +20,8 @@ class Question < ApplicationRecord
 
   private
 
-  def truncated_body
-    body.truncate(50, omission: "").parameterize
+  def slug_base
+    base = body.to_s.truncate(50, omission: "").parameterize
+    base.present? ? base : "question"
   end
 end

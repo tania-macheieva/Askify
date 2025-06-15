@@ -4,25 +4,23 @@
   right: 20px;
   z-index: 1000;
   color: var(--white);
-  padding: 28px 26px;
+  padding: 20px 26px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   opacity: 1;
-  animation: fadeOut 4s forwards;
+  animation: fadeOut 4s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
   0% {
     opacity: 1;
   }
-
   80% {
     opacity: 1;
   }
-
   100% {
     opacity: 0;
-    display: none;
+    visibility: hidden;
   }
 }
 
@@ -36,4 +34,19 @@
 
 .toast i {
   margin-right: 10px;
+}
+
+.toast.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.toast.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.toast.bottom-left {
+  bottom: 20px;
+  left: 20px;
 }

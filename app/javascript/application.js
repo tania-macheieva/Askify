@@ -10,48 +10,53 @@ document.addEventListener("DOMContentLoaded", () => {
 		return;
 	}
 
+	const REMOVE_INPUT_NAME = "user[remove_avatar]";
+	let removeInput = document.querySelector(`input[name="${REMOVE_INPUT_NAME}"]`);
+	
 	function updateAvatarPreview(imageSrc = null) {
+		avatarPreview.innerHTML = ""; 
+
 		if (imageSrc) {
-			avatarPreview.innerHTML = `...`;
+			const img = document.createElement("img");
+			img.src = imageSrc;
+			img.alt = "Avatar preview";
+			img.classList.add("avatar-image-preview");
+
+			avatarPreview.appendChild(img);
 			avatarContainer.classList.add("has-image");
 		} else {
-			avatarPreview.innerHTML = `...`;
+			const placeholder = document.createElement("div");
+			placeholder.classList.add("avatar-placeholder");
+			placeholder.innerText = "No image";
+
+			avatarPreview.appendChild(placeholder);
 			avatarContainer.classList.remove("has-image");
 		}
-
-		const newInput = avatarInput.cloneNode(true);
-		avatarPreview.appendChild(newInput);
-
-		const currentInput = avatarPreview.querySelector(".avatar-input");
-		if (currentInput) {
-			currentInput.addEventListener("change", handleFileChange);
-		}
 	}
-
+	
 	function removeAvatar() {
 		avatarInput.value = "";
-		let removeInput = document.querySelector(
-			'input[name="user[remove_avatar]"]'
-		);
+
 		if (!removeInput) {
 			removeInput = document.createElement("input");
 			removeInput.type = "hidden";
-			removeInput.name = "user[remove_avatar]";
+			removeInput.name = REMOVE_INPUT_NAME;
+			removeInput.value = "1";
 			avatarInput.closest("form").appendChild(removeInput);
+		} else {
+			removeInput.value = "1";
 		}
-		removeInput.value = "1";
+
 		updateAvatarPreview();
 	}
 
 	function handleFileChange(e) {
 		const file = e.target.files[0];
 		if (!file) return;
-
-		const removeInput = document.querySelector(
-			'input[name="user[remove_avatar]"]'
-		);
+		
 		if (removeInput) {
 			removeInput.remove();
+			removeInput = null;
 		}
 
 		const reader = new FileReader();
@@ -60,13 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 		reader.readAsDataURL(file);
 	}
-
+	
 	function resetAvatarPreviewStyle() {
 		avatarPreview.style.borderColor = "#ced4da";
 		avatarPreview.style.background = "#f9fbfd";
 	}
-
-	avatarInput.addEventListener("change", handleFileChange);
 
 	avatarPreview.addEventListener("dragover", e => {
 		e.preventDefault();
@@ -88,6 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		resetAvatarPreviewStyle();
 	});
+
+	avatarInput.addEventListener("change", handleFileChange);
 
 	window.removeAvatar = removeAvatar;
 });
