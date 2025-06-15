@@ -96,3 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	window.removeAvatar = removeAvatar;
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("avatar-upload");
+  const filenameSpan = document.getElementById("avatar-filename");
+
+  input.addEventListener("change", () => {
+    filenameSpan.textContent = input.files[0]?.name || "No file chosen";
+  });
+});
