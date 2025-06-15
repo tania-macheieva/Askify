@@ -36,3 +36,4 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+er.find_each(&save)  # для всіх юзерів генерує slug
