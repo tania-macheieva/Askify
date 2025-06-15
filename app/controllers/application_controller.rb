@@ -1,9 +1,22 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user
 
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from StandardError, with: :render_500
+
   private
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def render_404(exception)
+    logger.error("Record not found: #{exception.message}")
+    redirect_to "/404"
+  end
+
+  def render_500(exception)
+    logger.error("Internal server error: #{exception.message}")
+    redirect_to "/500"
   end
 end
