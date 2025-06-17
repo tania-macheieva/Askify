@@ -79,15 +79,36 @@
       <%= @received_questions.count %>
       <%= question_count_text(@received_questions.count) %>
     </h4>
+    <div class="user-search-container">
+      <%= form_with url: user_path(@user, anchor: 'questions-list'), method: :get, local: true, class: "user-search-form" do |form| %>
+        <div class="search-input-group">
+          <div class="search-input-wrapper">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+            <%= form.text_field :search,
+                value: params[:search],
+                placeholder: "Search questions or answers by keyword...",
+                class: "form-text-field search-input" %>
 
-    <% if @received_questions.present? %>
-      <% @received_questions.each do |question| %>
-        <div class="question-container">
-          <%= render question %>
+          </div>
+          <%= form.submit "Search", class: "button button-search" %>
+          <% if params[:search].present? %>
+            <%= link_to "Clear", request.path, class: "button button-clear" %>
+          <% end %>
         </div>
+
       <% end %>
-    <% else %>
-      <p><%= @user == current_user ? "You" : @user.nickname %> haven’t received any questions yet.</p>
-    <% end %>
+
+    </div>
+    <div id="questions-list">
+      <% if @received_questions.present? %>
+        <% @received_questions.each do |question| %>
+          <div class="question-container">
+            <%= render question %>
+          </div>
+        <% end %>
+      <% else %>
+        <p><%= @user == current_user ? "You" : @user.nickname %> haven’t received any questions yet.</p>
+      <% end %>
+    </div>
   </div>
 </div>

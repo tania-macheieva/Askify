@@ -38,6 +38,14 @@ class UsersController < ApplicationController
     @questions = @user.questions.order(created_at: :desc)
     @received_questions = @user.received_questions.order(created_at: :desc)
     @new_question = Question.new
+        
+    if params[:search].present?
+      search = params[:search].strip.downcase
+      query = "%#{search}%"
+      @received_questions = @received_questions.where("LOWER(body) LIKE :q", q: query)
+    end
+
+
   end
 
   def edit; end
