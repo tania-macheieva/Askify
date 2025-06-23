@@ -6,7 +6,13 @@ Rails.application.routes.draw do
 
   resource :session, only: %i[create destroy]
   resources :users, param: :nickname, only: %i[new create edit update destroy show index]
-  resources :questions
+
+    resources :questions do
+      member do
+        patch :answer
+        delete :remove_answer
+      end
+    end
 
   match "/test_404", to: "errors#not_found", via: :all
   match "/test_500", to: "errors#internal_server_error", via: :all

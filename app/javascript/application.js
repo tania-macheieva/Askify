@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	const REMOVE_INPUT_NAME = "user[remove_avatar]";
-	let removeInput = document.querySelector(`input[name="${REMOVE_INPUT_NAME}"]`);
-	
+	let removeInput = document.querySelector(
+		`input[name="${REMOVE_INPUT_NAME}"]`
+	);
+
 	function updateAvatarPreview(imageSrc = null) {
-		avatarPreview.innerHTML = ""; 
+		avatarPreview.innerHTML = "";
 
 		if (imageSrc) {
 			const img = document.createElement("img");
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			avatarContainer.classList.remove("has-image");
 		}
 	}
-	
+
 	function removeAvatar() {
 		avatarInput.value = "";
 
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	function handleFileChange(e) {
 		const file = e.target.files[0];
 		if (!file) return;
-		
+
 		if (removeInput) {
 			removeInput.remove();
 			removeInput = null;
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 		reader.readAsDataURL(file);
 	}
-	
+
 	function resetAvatarPreviewStyle() {
 		avatarPreview.style.borderColor = "#ced4da";
 		avatarPreview.style.background = "#f9fbfd";
@@ -98,10 +100,119 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("avatar-upload");
-  const filenameSpan = document.getElementById("avatar-filename");
+	const input = document.getElementById("avatar-upload");
+	const filenameSpan = document.getElementById("avatar-filename");
 
-  input.addEventListener("change", () => {
-    filenameSpan.textContent = input.files[0]?.name || "No file chosen";
-  });
+	input.addEventListener("change", () => {
+		filenameSpan.textContent = input.files[0]?.name || "No file chosen";
+	});
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	document
+		.querySelectorAll('[data-action="toggle-answer-form"]')
+		.forEach(button => {
+			button.addEventListener("click", () => {
+				const questionId = button.dataset.questionId;
+				const form = document.getElementById(
+					`answer-form-${questionId}`
+				);
+				form.classList.toggle("hidden");
+			});
+		});
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("click", function (e) {
+		if (e.target.closest(".show-answer-form-btn")) {
+			e.preventDefault();
+			const showBtn = e.target.closest(".show-answer-form-btn");
+			const questionId = showBtn.dataset.questionId;
+			const answerForm = document.querySelector(
+				`#answer-form-${questionId}`
+			);
+
+			if (answerForm) {
+				showBtn.style.display = "none";
+				answerForm.style.display = "block";
+				const textarea = answerForm.querySelector("textarea");
+				if (textarea) {
+					setTimeout(() => textarea.focus(), 100);
+				}
+			}
+		}
+
+		if (e.target.closest(".cancel-answer-btn")) {
+			e.preventDefault();
+			const button = e.target.closest(".cancel-answer-btn");
+			const questionId = button.dataset.questionId;
+			const answerForm = document.querySelector(
+				`#answer-form-${questionId}`
+			);
+			const showButton = document.querySelector(
+				`[data-question-id="${questionId}"].show-answer-form-btn`
+			);
+
+			if (answerForm && showButton) {
+				answerForm.style.display = "none";
+				showButton.style.display = "inline-block";
+
+				const textarea = answerForm.querySelector("textarea");
+				if (textarea) {
+					textarea.value = "";
+				}
+			}
+		}
+
+		if (e.target.closest(".edit-answer-btn")) {
+			e.preventDefault();
+			const button = e.target.closest(".edit-answer-btn");
+			const questionId = button.dataset.questionId;
+
+			const answerContainer = document.querySelector(
+				`#question-${questionId} .answer-container`
+			);
+			const editForm = document.querySelector(
+				`#edit-answer-form-${questionId}`
+			);
+
+			if (answerContainer && editForm) {
+				const answerText = answerContainer.querySelector(".text-dark");
+				const questionBtns =
+					answerContainer.querySelector(".question-btns");
+
+				if (answerText) answerText.style.display = "none";
+				if (questionBtns) questionBtns.style.display = "none";
+
+				editForm.style.display = "block";
+				const textarea = editForm.querySelector("textarea");
+				if (textarea) {
+					setTimeout(() => textarea.focus(), 100);
+				}
+			}
+		}
+
+		if (e.target.closest(".cancel-edit-btn")) {
+			e.preventDefault();
+			const button = e.target.closest(".cancel-edit-btn");
+			const questionId = button.dataset.questionId;
+			const answerContainer = document.querySelector(
+				`#question-${questionId} .answer-container`
+			);
+			const editForm = document.querySelector(
+				`#edit-answer-form-${questionId}`
+			);
+
+			if (answerContainer && editForm) {
+				const answerText = answerContainer.querySelector(".text-dark");
+				const questionBtns =
+					answerContainer.querySelector(".question-btns");
+
+				if (answerText) answerText.style.display = "block";
+				if (questionBtns) questionBtns.style.display = "flex";
+
+				editForm.style.display = "none";
+			}
+		}
+	});
 });

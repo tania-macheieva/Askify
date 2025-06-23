@@ -32,6 +32,7 @@
       <% end %>
     </div>
   </div>
+  
   <% if @user.education.present? || @user.experience.present? || @user.tech_stack.present? || @user.languages.present? %>
     <div class="profile-career-section mt-lg">
       <% if @user.education.present? %>
@@ -79,6 +80,7 @@
       <%= @received_questions.count %>
       <%= question_count_text(@received_questions.count) %>
     </h4>
+    
     <div class="user-search-container">
       <%= form_with url: user_path(@user, anchor: 'questions-list'), method: :get, local: true, class: "user-search-form" do |form| %>
         <div class="search-input-group">
@@ -88,26 +90,91 @@
                 value: params[:search],
                 placeholder: "Search questions or answers by keyword...",
                 class: "form-text-field search-input" %>
-
           </div>
-          <%= form.submit "Search", class: "button button-search" %>
+          <%= form.submit "Search", class: "button button-secondary" %>
           <% if params[:search].present? %>
-            <%= link_to "Clear", request.path, class: "button button-clear" %>
+            <%= link_to "Clear", request.path, class: "button button-cancel" %>
           <% end %>
         </div>
-
       <% end %>
-
     </div>
+    
     <div id="questions-list">
-      <% if @received_questions.present? %>
-        <% @received_questions.each do |question| %>
-          <div class="question-container">
-            <%= render question %>
+      <% @received_questions.each do |question| %>
+        <div class="question-container">
+          <div class="question-block" id="question-<%= question.id %>">
+            <%= render 'questions/question', question: question %>
+            
+            <% if question.receiver == current_user && question.answer.blank? %>
+              <div class="mt-lg ml-45">
+                <button type="button" class="button button-main show-answer-form-btn" data-question-id="<%= question.id %>">
+                  Answer Question
+                </button>
+                <div id="answer-form-<%= question.id %>" class="answer-form mt-sm" style="display: none;">
+                  <%= form_with model: question, url: answer_question_path(question), method: :patch, local: false do |f| %>
+                    <%= f.text_area :answer, placeholder: "Enter your answer...", class: "form-text-area mb-sm" %>
+                    <div class="form-buttons">
+                      <%= f.submit "Надіслати відповідь", class: "button button-main" %>
+                      <button type="button" class="button  cancel-answer-btn" 
+                              data-question-id="<%= question.id %>">Cancel</button>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+            
+            <% if question.answer.present? %>
+              <div class="answer-container mt p-sm rounded bg-light">
+                <div class="flex space-x">
+                  <div>
+                    <% if question.receiver.avatar.attached? %>
+                      <%= image_tag question.receiver.avatar, class: "avatar" %>
+                    <% else %>
+                      <div class="avatar avatar-initial"><%= question.receiver.nickname.first.upcase %></div>
+                    <% end %>
+                  </div>
+
+                  <div class="full-width">
+                    <p class="text-dark"><%= question.answer %></p>
+                    <div class="text-sm text-grey">
+                      <%= question.updated_at.present? ? "Answered: #{l(question.updated_at, format: :short)}" : "No timestamp" %>
+                    </div>
+                  </div>
+                </div>
+                
+                <% if question.receiver == current_user %>
+                  <div class="question-btns mt-xs">
+                    <button type="button" class="edit-answer-btn" 
+                            data-question-id="<%= question.id %>" 
+                            title="Edit answer">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+
+                    <%= button_to fa_icon('trash'), remove_answer_question_path(question), 
+                        method: :delete, 
+                        data: { confirm: "Are you sure you want to delete this answer?" },
+                        class: 'delete-button', 
+                        title: "Delete answer",
+                        form: { data: { turbo_method: :delete } } %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <% if question.receiver == current_user %>
+                <div id="edit-answer-form-<%= question.id %>" class="edit-answer-form" style="display: none;">
+                  <%= form_with model: question, url: answer_question_path(question), method: :patch, local: false do |f| %>
+                    <%= f.text_area :answer, value: question.answer, class: "form-text-area  mb-sm", rows: 4 %>
+                    <div class="form-buttons">
+                      <%= f.submit "Save Answer", class: "button button-main" %>
+                      <button type="button" class="button cancel-edit-btn button-cancel" 
+                              data-question-id="<%= question.id %>">Cancel</button>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
           </div>
-        <% end %>
-      <% else %>
-        <p><%= @user == current_user ? "You" : @user.nickname %> haven’t received any questions yet.</p>
+        </div>
       <% end %>
     </div>
   </div>

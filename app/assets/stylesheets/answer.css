@@ -1,0 +1,15 @@
+.answer-container {
+  padding-left: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.edit-answer-form {
+  margin-left: 80px;
+}
+
+.hidden {
+  display: none !important;
+}
+

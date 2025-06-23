@@ -8,9 +8,9 @@
             placeholder: "Search by name, nickname, or position...",
             class: "form-text-field search-input" %>
       </div>
-      <%= form.submit "Search", class: "button button-search" %>
+      <%= form.submit "Search", class: "button button-secondary" %>
       <% if params[:search].present? %>
-        <%= link_to "Clear", request.path, class: "button button-clear" %>
+        <%= link_to "Clear", request.path, class: "button button-cancel" %>
       <% end %>
     </div>
 

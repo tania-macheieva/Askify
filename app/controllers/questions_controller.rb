@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: %i[edit update destroy]
+  before_action :set_question, only: %i[edit update destroy answer remove_answer]
   before_action :check_question_owner, only: %i[edit update destroy]
+  before_action :check_question_receiver, only: %i[answer remove_answer]
 
   def index
     @question = Question.new
@@ -32,7 +33,8 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to session.delete(:return_to) || user_path(@question.receiver), notice: "Your question edited successfully!"
+      redirect_to session.delete(:return_to) || user_path(@question.receiver),
+                  notice: "Your question edited successfully!"
     else
       flash.now[:alert] = "The field is empty"
       render :edit
@@ -42,23 +44,75 @@ class QuestionsController < ApplicationController
   def destroy
     receiver = @question.receiver
     @question.destroy
-    redirect_back fallback_location: user_path(receiver), notice: "Your question deleted successfully!"
+    redirect_back fallback_location: user_path(receiver),
+                  notice: "Your question deleted successfully!"
+  end
+
+  def answer
+    if @question.update(answer_params)
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "question-#{@question.id}",
+            partial: "questions/question",
+            locals: { question: @question }
+          )
+        end
+        format.html do
+          redirect_to user_path(@question.receiver, anchor: "question-#{@question.id}"),
+                      notice: "Answer saved!"
+        end
+      end
+    else
+      flash[:alert] = "Answer can't be blank."
+      redirect_to user_path(@question.receiver, anchor: "questions-list")
+    end
+  end
+
+  def remove_answer
+    @question.update(answer: nil)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "question-#{@question.id}",
+          partial: "questions/question",
+          locals: { question: @question }
+        )
+      end
+      format.html do
+        redirect_to user_path(@question.receiver, anchor: "question-#{@question.id}"),
+                    notice: "Answer deleted!"
+      end
+    end
   end
 
   private
 
   def set_question
     @question = Question.friendly.find(params[:id])
+    redirect_to root_path, alert: "Question not found." unless @question
   end
 
   def check_question_owner
     return if @question.user == current_user
 
-    redirect_back fallback_location: root_path, alert: "You can only edit your own questions."
+    redirect_back fallback_location: root_path,
+                  alert: "You can only edit your own questions."
+  end
+
+  def check_question_receiver
+    return if @question.receiver == current_user
+
+    redirect_to root_path, alert: "You can't perform this action."
   end
 
   def question_params
     params.require(:question).permit(:body, :receiver_id)
+  end
+
+  def answer_params
+    params.require(:question).permit(:answer)
   end
 
   def load_user_questions_data(user)

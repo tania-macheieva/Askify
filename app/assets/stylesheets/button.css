@@ -56,3 +56,34 @@
   margin-right: 4px;
   font-size: 1.125rem;
 }
+
+
+.button-secondary {
+  padding: 12px 24px;
+  background: var(--main);
+  color: var(--white);
+  border: none;
+  font-size: 16px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background: var(--main-dark);
+}
+
+.button-cancel {
+  padding: 12px 16px;
+  background: var(--dusty-white);
+  color: var(--black);
+  border: 1px solid var(--light-grey);
+  font-size: 14px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.button-cancel:hover {
+  background: var(--bright-grey);
+  border-color: var(--silver-grey);
+  color: var(--black) !important;
+}
